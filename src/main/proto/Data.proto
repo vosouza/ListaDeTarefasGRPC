@@ -1,0 +1,35 @@
+syntax="proto3";
+
+option java_multiple_files=true;
+option java_package="org.example";
+option java_outer_classname="Main";
+option objc_class_prefix="HLW";
+
+package example;
+
+service TodoList{
+  rpc SaveTodoItem(TodoItem) returns (SaveTodoItemReply);
+  rpc GetAllTodoItems(AllTodoItemRequest) returns (TodoItemReply){}
+}
+
+message TodoItemReply{
+  repeated TodoItem items = 1;
+}
+
+message TodoItem{
+  int32 id = 1;
+  string toDoMessage = 2;
+  string status = 3;
+}
+
+message AllTodoItemRequest{
+}
+
+message SaveTodoItemReply{
+  SaveStatus status =1;
+
+  enum SaveStatus{
+    SUCCESS = 0;
+    FAILED = 1 ;
+  }
+}
