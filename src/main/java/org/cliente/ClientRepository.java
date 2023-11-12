@@ -22,6 +22,19 @@ public class ClientRepository {
         stub = TodoListGrpc.newBlockingStub(channel);
     }
 
+    public void mudarTarefa(int id){
+        ChangeTodoItemStatuss item = ChangeTodoItemStatuss.newBuilder().setId(id).build();
+        SaveTodoItemReply response;
+        try {
+            response = stub.changeTodoItem(item);
+            System.out.println(response.toString());
+        } catch (StatusRuntimeException e) {
+            System.out.println("Falha ao fazer chamada de gravação");
+            System.out.println(e.toString());
+            return;
+        }
+    }
+
     public void gravarTarefa(String tarefa){
         TodoItem item = TodoItem.newBuilder().setToDoMessage(tarefa).setId(1).setStatus("Incompleto").build();
         SaveTodoItemReply response;

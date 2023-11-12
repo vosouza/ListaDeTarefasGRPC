@@ -12,6 +12,21 @@ public class ServiceImpl extends TodoListGrpc.TodoListImplBase {
         this.logger = logger;
     }
 
+
+    @Override
+    public void changeTodoItem(ChangeTodoItemStatuss request, StreamObserver<SaveTodoItemReply> responseObserver) {
+        SaveTodoItemReply reply;
+        try {
+            repository.changeItem(request.getId());
+            logger.info("NOVO ITEM:" + request.toString());
+            reply = SaveTodoItemReply.newBuilder().setStatus(SaveTodoItemReply.SaveStatus.SUCCESS).build();
+        } catch (Exception e){
+            reply = SaveTodoItemReply.newBuilder().setStatus(SaveTodoItemReply.SaveStatus.FAILED).build();
+        }
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+    }
+
     @Override
     public void saveTodoItem(TodoItem request, StreamObserver<SaveTodoItemReply> responseObserver) {
         SaveTodoItemReply reply;

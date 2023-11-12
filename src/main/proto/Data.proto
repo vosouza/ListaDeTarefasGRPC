@@ -10,10 +10,15 @@ package example;
 service TodoList{
   rpc SaveTodoItem(TodoItem) returns (SaveTodoItemReply);
   rpc GetAllTodoItems(AllTodoItemRequest) returns (TodoItemReply){}
+  rpc ChangeTodoItem(ChangeTodoItemStatuss) returns (SaveTodoItemReply){}
 }
 
 message TodoItemReply{
   repeated TodoItem items = 1;
+}
+
+message ChangeTodoItemStatuss{
+  int32 id = 1;
 }
 
 message TodoItem{
